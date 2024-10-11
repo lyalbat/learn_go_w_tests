@@ -2,6 +2,7 @@ package main
 
 import "math"
 
+// parametric polymorphism
 type Shape interface {
 	Area() float64
 }

@@ -15,22 +15,22 @@ func TestPerimeter(t *testing.T) {
 
 func TestArea(t *testing.T) {
 
-	checkArea := func(t testing.TB, shape Shape, want float64) {
-		t.Helper()
-		got := shape.Area()
+	//table driven tests - ref: go.dev/wiki/TableDrivenTests
+	//anonymous struct
+	//to run a specific test: go test -run TestArea/Rectangle
+	areaTests := []struct {
+		shape Shape
+		want  float64
+	}{
+		{Rectangle{12, 6}, 72.0},
+		{Circle{10}, 314.1592653589793},
+	}
 
-		//.2f two decimal points
-		//g is more precise than f
-		if got != want {
-			t.Errorf("got %.2f want %g", got, want)
+	for _, test_unit := range areaTests {
+		got := test_unit.shape.Area()
+		// the #v will return the struct parameters alongside its values - makes debugging easier
+		if got != test_unit.want {
+			t.Errorf("%#v got %g want %g", test_unit.shape, got, test_unit.want)
 		}
 	}
-	t.Run("calculate area of rectangle", func(t *testing.T) {
-		rectangle := Rectangle{12.0, 6.0}
-		checkArea(t, rectangle, 72.0)
-	})
-	t.Run("calculate area of circle", func(t *testing.T) {
-		circle := Circle{10}
-		checkArea(t, circle, 314.1592653589793)
-	})
 }
