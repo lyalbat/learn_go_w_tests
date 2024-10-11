@@ -1,1 +1,1 @@
-#this is just an archive of my notes and test codes from the book: Learn Go with Tests
+This is just an archive of my notes and test codes from the book: Learn Go with Tests
