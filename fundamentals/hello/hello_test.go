@@ -17,6 +17,21 @@ func TestHello(t *testing.T) {
 	})
 }
 
+func TestInternationHello(t *testing.T) {
+	t.Run("say hello in portuguese when sent Portuguese as the language", func(t *testing.T){
+		got := InternationHello("Portugues")
+		want := "bom dia"
+	
+		assertIncorrectMessage(t,got,want)
+	})
+	t.Run("say hello in english when sent no language", func(t *testing.T){
+		got := InternationHello("")
+		want := "hello"
+	
+		assertIncorrectMessage(t,got,want)
+	})
+}
+
 func assertIncorrectMessage(t testing.TB, got, want string){
 	t.Helper()
 	if got != want {
