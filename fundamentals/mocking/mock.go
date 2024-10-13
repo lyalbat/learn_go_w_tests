@@ -20,11 +20,12 @@ func (c *ConfigurableSleeper) Sleep() {
 	c.sleep(c.duration)
 }
 
+/*
 type DefaultSleeper struct{}
 
 func (d *DefaultSleeper) Sleep() {
 	time.Sleep(1 * time.Second)
-}
+}*/
 
 func Countdown(w io.Writer, sleeper Sleeper) {
 	for i := 3; i > 0; i-- {
