@@ -1,6 +1,8 @@
 package main
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestSearch(t *testing.T) {
 	dictionary := Dictionary{"test": "this is a test"}
@@ -44,12 +46,26 @@ func TestUpdate(t *testing.T) {
 		dictionary := Dictionary{word: previousDefinition}
 		newDefinition := "new definition"
 		err := dictionary.Update(word, newDefinition)
-		if err != nil {
-			t.Fatal("should find word:", err)
-		}
-		got, _ := dictionary.Search("test")
-		assertStrings(t, got, newDefinition)
+		assertError(t, err, nil)
+		assertDefinition(t, dictionary, newDefinition)
 	})
+	t.Run("update word that is not in dictionary", func(t *testing.T) {
+		word := "test"
+		dictionary := Dictionary{}
+		newDefinition := "new definition"
+		err := dictionary.Update(word, newDefinition)
+		assertError(t, err, ErrWordDoesNotExist)
+		//assertDefinition(t, dictionary, newDefinition)
+	})
+}
+
+func TestDelete(t *testing.T) {
+	word := "test"
+	definition := "this is just a test"
+	dictionary := Dictionary{word: definition}
+	dictionary.Delete(word)
+	_, err := dictionary.Search("test")
+	assertError(t, err, ErrNotFound)
 }
 
 func assertStrings(t testing.TB, got, want string) {
